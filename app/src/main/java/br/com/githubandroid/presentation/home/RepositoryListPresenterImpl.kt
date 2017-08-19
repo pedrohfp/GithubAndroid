@@ -2,6 +2,7 @@ package br.com.githubandroid.presentation.home
 
 import br.com.githubandroid.domain.interactor.repository.GetRepositoryUseCase
 import br.com.githubandroid.domain.model.Repository
+import br.com.githubandroid.domain.model.RepositoryResponse
 import br.com.githubandroid.presentation.home.contract.MainActivityView
 import br.com.githubandroid.presentation.home.contract.RepositoryListView
 import br.com.githubandroid.presentation.home.contract.RepositoryPresenter
@@ -31,12 +32,12 @@ class RepositoryListPresenterImpl: RepositoryPresenter {
         mGetRepositoryUseCase.execute(RepositoryListSubscriber(), query)
     }
 
-    override fun successLoadGithubRepositories(repositories: ArrayList<Repository>) {
+    override fun successLoadGithubRepositories(repositories: RepositoryResponse) {
         mRepositoryListView.showRepositories(repositories)
     }
 
-    inner class RepositoryListSubscriber: DisposableObserver<ArrayList<Repository>>(){
-        override fun onNext(t: ArrayList<Repository>) {
+    inner class RepositoryListSubscriber: DisposableObserver<RepositoryResponse>(){
+        override fun onNext(t: RepositoryResponse) {
             successLoadGithubRepositories(t)
         }
 

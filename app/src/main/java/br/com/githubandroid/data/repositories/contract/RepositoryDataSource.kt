@@ -1,6 +1,7 @@
 package br.com.githubandroid.data.repositories.contract
 
 import br.com.githubandroid.domain.model.Repository
+import br.com.githubandroid.domain.model.RepositoryResponse
 import io.reactivex.Observable
 
 /**
@@ -8,5 +9,5 @@ import io.reactivex.Observable
  */
 
 interface RepositoryDataSource {
-    fun loadGithubRepositories(query: String): Observable<ArrayList<Repository>>
+    fun loadGithubRepositories(query: String): Observable<RepositoryResponse>
 }

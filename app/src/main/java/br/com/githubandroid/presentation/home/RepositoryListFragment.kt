@@ -13,6 +13,7 @@ import kotlinx.android.synthetic.main.fragment_repository_list.*
 
 import br.com.githubandroid.R
 import br.com.githubandroid.domain.model.Repository
+import br.com.githubandroid.domain.model.RepositoryResponse
 import br.com.githubandroid.presentation.home.contract.RepositoryListView
 import br.com.githubandroid.presentation.home.contract.RepositoryPresenter
 import br.com.githubandroid.presentation.utils.RxSearch
@@ -72,9 +73,9 @@ class RepositoryListFragment : Fragment(), RepositoryListView {
         mPresenter = presenter
     }
 
-    override fun showRepositories(repositories: ArrayList<Repository>) {
+    override fun showRepositories(repositories: RepositoryResponse) {
         mAdapter.repositoryList.clear()
-        mAdapter.repositoryList.addAll(repositories)
+        mAdapter.repositoryList.addAll(repositories.mItems!!)
         mAdapter.notifyDataSetChanged()
     }
 

@@ -2,6 +2,7 @@ package br.com.githubandroid.data.repositories
 
 import br.com.githubandroid.data.repositories.contract.RepositoryDataSource
 import br.com.githubandroid.domain.model.Repository
+import br.com.githubandroid.domain.model.RepositoryResponse
 import io.reactivex.Observable
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -19,7 +20,7 @@ class GithubRepository : RepositoryDataSource {
         this.mRepositoryRemoteDataSource = mRepositoryRemoteDataSource
     }
 
-    override fun loadGithubRepositories(query: String): Observable<ArrayList<Repository>> {
+    override fun loadGithubRepositories(query: String): Observable<RepositoryResponse> {
         return mRepositoryRemoteDataSource.loadGithubRepositories(query)
     }
 }

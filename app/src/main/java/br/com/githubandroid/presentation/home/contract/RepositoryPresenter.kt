@@ -1,6 +1,7 @@
 package br.com.githubandroid.presentation.home.contract
 
 import br.com.githubandroid.domain.model.Repository
+import br.com.githubandroid.domain.model.RepositoryResponse
 import br.com.githubandroid.presentation.base.BasePresenter
 
 /**
@@ -8,5 +9,5 @@ import br.com.githubandroid.presentation.base.BasePresenter
  */
 interface RepositoryPresenter : BasePresenter {
     fun loadGithubRepositories(query: String)
-    fun successLoadGithubRepositories(repositories: ArrayList<Repository>)
+    fun successLoadGithubRepositories(repositories: RepositoryResponse)
 }

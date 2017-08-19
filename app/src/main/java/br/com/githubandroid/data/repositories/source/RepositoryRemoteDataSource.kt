@@ -4,6 +4,7 @@ import br.com.githubandroid.data.repositories.contract.RepositoryDataSource
 import br.com.githubandroid.data.rest.RepositoryApi
 import br.com.githubandroid.domain.model.Owner
 import br.com.githubandroid.domain.model.Repository
+import br.com.githubandroid.domain.model.RepositoryResponse
 import io.reactivex.Observable
 import io.reactivex.ObservableEmitter
 import org.json.JSONObject
@@ -22,9 +23,9 @@ class RepositoryRemoteDataSource: RepositoryDataSource {
         this.mRetrofit = mRetrofit
     }
 
-    override fun loadGithubRepositories(query: String): Observable<ArrayList<Repository>> {
+    override fun loadGithubRepositories(query: String): Observable<RepositoryResponse> {
         return Observable.create {
-            e: ObservableEmitter<ArrayList<Repository>> ->
+            e: ObservableEmitter<RepositoryResponse> ->
 
             try{
 
@@ -34,31 +35,9 @@ class RepositoryRemoteDataSource: RepositoryDataSource {
 
                 var responseBody = callBody.execute()
 
-                val repositoryList = ArrayList<Repository>()
-
                 if(responseBody.isSuccessful){
 
-                    var jsonObject = JSONObject(responseBody.body()?.string())
-                    var items = jsonObject.getJSONArray("items")
-
-                    for(i in 0..(items.length() - 1)){
-                        val repositoryObject = items.getJSONObject(i)
-                        val id = repositoryObject.getInt("id")
-                        val name = repositoryObject.getString("name")
-                        val fullName = repositoryObject.getString("full_name")
-
-                        val ownerObject = repositoryObject.getJSONObject("owner")
-                        val login = ownerObject.getString("login")
-                        val ownerId = ownerObject.getInt("id")
-                        val avatarUrl = ownerObject.getString("avatar_url")
-
-                        val owner = Owner(ownerId, login, avatarUrl)
-                        val repository = Repository(id, name, fullName, owner)
-
-                        repositoryList.add(repository)
-                    }
-
-                    e.onNext(repositoryList)
+                    e.onNext(responseBody.body()!!)
                 }
 
             }catch (error: Exception){
