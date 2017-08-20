@@ -1,4 +1,4 @@
-package br.com.githubandroid.idling
+package br.com.githubandroid.settings.idling
 
 import android.support.test.espresso.IdlingResource
 

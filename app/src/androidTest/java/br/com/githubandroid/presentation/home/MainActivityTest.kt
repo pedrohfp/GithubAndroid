@@ -1,12 +1,11 @@
 package br.com.githubandroid.presentation.home
 
+import android.support.test.InstrumentationRegistry
 import android.support.test.espresso.Espresso
 import android.support.test.filters.LargeTest
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import br.com.githubandroid.R
-import kotlinx.android.synthetic.main.fragment_repository_list.*
-import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -14,10 +13,16 @@ import android.support.test.espresso.action.ViewActions.*
 import android.support.test.espresso.matcher.ViewMatchers.*
 import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.Espresso.onView
-import android.support.v7.widget.SearchView
-import android.view.KeyEvent
-import android.widget.AutoCompleteTextView
-import br.com.githubandroid.idling.ElapsedTimeIdlingResource
+import br.com.githubandroid.domain.model.Owner
+import br.com.githubandroid.domain.model.Repository
+import br.com.githubandroid.domain.model.RepositoryResponse
+import br.com.githubandroid.settings.idling.ElapsedTimeIdlingResource
+import br.com.githubandroid.presentation.application.GithubApplication
+import com.google.gson.Gson
+import okhttp3.mockwebserver.MockResponse
+import okhttp3.mockwebserver.MockWebServer
+import org.junit.Before
+import retrofit2.converter.gson.GsonConverterFactory
 
 
 /**
@@ -33,8 +38,9 @@ class MainActivityTest{
 
     @Test
     fun testSearchGithubRepositories(){
-        onView(withId(R.id.searchView)).perform(click())
-        onView(withId(android.support.design.R.id.search_src_text)).perform(typeText("Android"))
+
+        onView(withId(R.id.search_button)).perform(click())
+        onView(withId(R.id.search_src_text)).perform(replaceText("Android"), closeSoftKeyboard())
 
         val idlingResource = ElapsedTimeIdlingResource(5000)
 
@@ -43,7 +49,6 @@ class MainActivityTest{
         onView(withId(R.id.recyclerView)).check(matches(isDisplayed()))
 
         Espresso.unregisterIdlingResources(idlingResource)
-
     }
 
 }
