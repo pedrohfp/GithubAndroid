@@ -7,7 +7,6 @@ import br.com.githubandroid.R
 import br.com.githubandroid.presentation.application.GithubApplication
 import br.com.githubandroid.presentation.home.contract.MainActivityView
 import br.com.githubandroid.presentation.home.contract.RepositoryPresenter
-import br.com.githubandroid.presentation.home.di.DaggerRepositoryComponent
 import br.com.githubandroid.presentation.home.di.RepositoryListModule
 import br.com.githubandroid.presentation.utils.ActivityUtils
 import javax.inject.Inject
@@ -35,11 +34,10 @@ class MainActivity : MainActivityView() {
         }
 
         //Create the presenter
-        DaggerRepositoryComponent.builder()
-                .appComponent(GithubApplication.mAppComponent)
-                .repositoryListModule(RepositoryListModule(this, mRepositoryListFragment!!))
-                .build()
+        GithubApplication.mAppComponent
+                .plusRepository(RepositoryListModule(this, mRepositoryListFragment!!))
                 .inject(this)
+
 
     }
 

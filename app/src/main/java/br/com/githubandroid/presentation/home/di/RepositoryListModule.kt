@@ -16,9 +16,9 @@ import retrofit2.Retrofit
  * Created by pedrohenrique on 19/08/17.
  */
 @Module
-class RepositoryListModule{
-    val mActivityView: MainActivityView
-    val mRepositoryListView: RepositoryListView
+open class RepositoryListModule{
+    open val mActivityView: MainActivityView
+    open val mRepositoryListView: RepositoryListView
 
     constructor(mActivityView: MainActivityView, mRepositoryList: RepositoryListView) {
         this.mActivityView = mActivityView
@@ -27,37 +27,37 @@ class RepositoryListModule{
 
     @FragmentScoped
     @Provides
-    fun provideActivityView(): MainActivityView{
+    open fun provideActivityView(): MainActivityView{
         return mActivityView
     }
 
     @FragmentScoped
     @Provides
-    fun provideRepositoryListView(): RepositoryListView{
+    open fun provideRepositoryListView(): RepositoryListView{
         return mRepositoryListView
     }
 
     @FragmentScoped
     @Provides
-    fun provideRepositoryPresenter(presenter: RepositoryListPresenterImpl): RepositoryPresenter {
+    open fun provideRepositoryPresenter(presenter: RepositoryListPresenterImpl): RepositoryPresenter {
         return presenter
     }
 
     @FragmentScoped
     @Provides
-    fun provideGetRepositoryUseCase(repository: GithubRepository): GetRepositoryUseCase {
+    open fun provideGetRepositoryUseCase(repository: GithubRepository): GetRepositoryUseCase {
         return GetRepositoryUseCase(repository)
     }
 
     @FragmentScoped
     @Provides
-    fun provideGithubRepository(mRepositoryRemoteDataSource: RepositoryRemoteDataSource): GithubRepository{
+    open fun provideGithubRepository(mRepositoryRemoteDataSource: RepositoryRemoteDataSource): GithubRepository{
         return GithubRepository(mRepositoryRemoteDataSource)
     }
 
     @FragmentScoped
     @Provides
-    fun provideRepositoryRemoteDataSource(retrofit: Retrofit): RepositoryRemoteDataSource{
+    open fun provideRepositoryRemoteDataSource(retrofit: Retrofit): RepositoryRemoteDataSource{
         return RepositoryRemoteDataSource(retrofit)
     }
 }

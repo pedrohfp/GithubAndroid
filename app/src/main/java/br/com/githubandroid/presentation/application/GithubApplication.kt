@@ -9,7 +9,7 @@ import br.com.githubandroid.presentation.application.di.NetworkModule
 /**
  * Created by pedrohenrique on 19/08/17.
  */
-class GithubApplication: Application(){
+open class GithubApplication: Application(){
 
     companion object {
         @JvmStatic lateinit var mAppComponent: AppComponent
@@ -22,7 +22,7 @@ class GithubApplication: Application(){
         mAppComponent = initDagger()
     }
 
-    fun initDagger(): AppComponent{
+    open fun initDagger(): AppComponent{
         return DaggerAppComponent.builder()
                 .appModule(AppModule(this))
                 .networkModule(NetworkModule(mBaseUrl))
