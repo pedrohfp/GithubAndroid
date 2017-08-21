@@ -12,7 +12,7 @@ android {
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "br.com.githubandroid.settings.runner.TestRunner"
+        testInstrumentationRunner "br.com.githubandroid.settings.runner.MockTestRunner"
     }
     buildTypes {
         release {
@@ -56,16 +56,13 @@ dependencies {
     testCompile 'org.robolectric:shadows-support-v4:3.0'
     testCompile 'com.squareup.okhttp3:mockwebserver:3.8.0', { exclude group: 'com.squareup.okio' }
 
+    androidTestCompile 'com.github.tmurakami:dexopener:0.9.8', {exclude module: 'support-annotations'}
     androidTestCompile 'com.android.support.test:runner:1.0.0', {exclude group: 'com.android.support'}
     androidTestCompile 'com.android.support.test:rules:1.0.0', {exclude group: 'com.android.support'}
     androidTestCompile 'com.android.support.test.espresso:espresso-core:3.0.0', {exclude group: 'com.android.support'}
     androidTestCompile 'com.squareup.okhttp3:mockwebserver:3.8.0', { exclude group: 'com.squareup.okio' }
-    androidTestCompile 'com.nhaarman:mockito-kotlin-kt1.1:1.5.0', { exclude group: 'org.jetbrains.kotlin' }
     androidTestCompile 'com.google.dagger:dagger:2.11'
-    androidTestCompile 'com.google.dexmaker:dexmaker:+'
-    androidTestCompile 'com.google.dexmaker:dexmaker-mockito:+'
-    androidTestCompile 'org.mockito:mockito-core:+'
-    androidTestCompile 'com.github.tmurakami:dexopener:+', { exclude module: 'support-annotations'}
+    androidTestCompile 'com.github.fabioCollini:DaggerMock:0.7.0'
     kaptAndroidTest 'com.google.dagger:dagger-compiler:2.11'
 
 

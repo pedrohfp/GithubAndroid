@@ -1,9 +1,6 @@
-package br.com.githubandroid.application.di
+package br.com.githubandroid.presentation.application.di
 
 import android.app.Application
-import br.com.githubandroid.data.repositories.GithubRepository
-import br.com.githubandroid.data.repositories.source.RepositoryRemoteDataSource
-import br.com.githubandroid.presentation.utils.FragmentScoped
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -12,16 +9,21 @@ import dagger.Provides
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import okhttp3.mockwebserver.MockWebServer
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 /**
- * Created by pedrohenrique on 20/08/17.
+ * Created by pedrohenrique on 21/08/17.
  */
 @Module
 class NetworkTestModule{
+
+    var mBaseUrl: String
+
+    constructor(mBaseUrl: String) {
+        this.mBaseUrl = mBaseUrl
+    }
 
     @Provides
     @Singleton
@@ -53,7 +55,7 @@ class NetworkTestModule{
     fun provideRetrofit(gson: Gson, client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create(gson))
-                .baseUrl("https://api.github.com/")
+                .baseUrl(mBaseUrl)
                 .client(client)
                 .build()
     }

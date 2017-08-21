@@ -29,4 +29,8 @@ open class GithubApplication: Application(){
                 .build()
     }
 
+    open fun setComponent(component: AppComponent){
+        mAppComponent = component
+    }
+
 }
