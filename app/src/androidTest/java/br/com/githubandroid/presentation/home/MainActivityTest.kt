@@ -22,14 +22,10 @@ import br.com.githubandroid.presentation.application.GithubApplication
 import br.com.githubandroid.presentation.application.di.AppModule
 import br.com.githubandroid.presentation.application.di.DaggerAppTestComponent
 import br.com.githubandroid.presentation.application.di.NetworkTestModule
-import br.com.githubandroid.presentation.home.di.RepositoryListModule
 import com.google.gson.Gson
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.Before
-import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Inject
-import io.reactivex.Observable
 
 
 /**
@@ -70,7 +66,7 @@ class MainActivityTest{
         val owner = Owner(0, "test", "url")
         var repository = Repository(0, "name", "fullName", owner)
 
-        val repositoryList = arrayListOf<Repository>(repository, repository)
+        val repositoryList = arrayListOf(repository, repository)
 
         val repositoryResponse = RepositoryResponse(repositoryList)
 
@@ -78,14 +74,7 @@ class MainActivityTest{
 
         onView(withId(R.id.search_button)).perform(click())
         onView(withId(R.id.search_src_text)).perform(replaceText("test"), closeSoftKeyboard())
-
-        val idlingResource = ElapsedTimeIdlingResource(5000)
-
-        Espresso.registerIdlingResources(idlingResource)
-
         onView(withId(R.id.recyclerView)).check(matches(isDisplayed()))
-
-        Espresso.unregisterIdlingResources(idlingResource)
     }
 
 }
